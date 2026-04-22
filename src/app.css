@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-noto {
+  font-family: 'Noto Sans Tamil', 'Noto Serif Tamil', serif;
+}
