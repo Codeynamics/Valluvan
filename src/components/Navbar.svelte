@@ -23,7 +23,7 @@
     </button>
 
     <div class="hidden items-center gap-8 md:flex">
-      {#each links as link}
+      {#each links as link (link.name)}
         <a href={link.href} class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
           {link.name}
         </a>
@@ -51,7 +51,7 @@
   {#if menuOpen}
     <div class="border-t border-red-100 bg-white px-6 py-4 md:hidden">
       <div class="flex flex-col gap-4">
-        {#each links as link}
+        {#each links as link (link.name)}
           <a href={link.href} class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={() => menuOpen = false}>
             {link.name}
           </a>
