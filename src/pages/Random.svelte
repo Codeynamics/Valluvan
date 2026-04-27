@@ -130,8 +130,8 @@
         {#each [0, 1, 2] as idx (idx)}
           <div class="reel-window">
             <div bind:this={reelEls[idx]} class="reel" class:spinning={isSpinning}>
-              {#each Array.from({ length: 10 }) as _, cycle}
-                {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as d}
+              {#each Array.from({ length: 10 }) as _, _cycle (_cycle)}
+                {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as d (d)}
                   <div class="reel-digit">{d}</div>
                 {/each}
               {/each}
