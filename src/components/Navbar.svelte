@@ -1,18 +1,20 @@
 <script>
+  import { link } from 'svelte-spa-router';
   let menuOpen = $state(false);
   const links = [
-    { name: 'Features', href: '#features' },
-    { name: 'Competition', href: '#competition' },
-    { name: 'Prizes', href: '#prizes' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Features', href: '/#features' },
+    { name: 'Competition', href: '/#competition' },
+    { name: 'Prizes', href: '/#prizes' },
+    { name: 'Contact', href: '/#contact' },
   ];
 </script>
 
 <nav class="sticky top-0 z-50 w-full border-b border-red-100 bg-white/90 backdrop-blur">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-    <button
+    <a
+      href="/"
+      use:link
       class="flex items-center gap-2 text-2xl font-bold text-red-600"
-      onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
       <svg class="h-8 w-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="3"/>
@@ -20,7 +22,7 @@
         <circle cx="20" cy="22" r="3" fill="currentColor"/>
       </svg>
       <span class="font-noto">வள்ளுவன்</span>
-    </button>
+    </a>
 
     <div class="hidden items-center gap-8 md:flex">
       {#each links as link (link.name)}
@@ -28,9 +30,9 @@
           {link.name}
         </a>
       {/each}
-      <button class="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">
+      <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">
         Get Started
-      </button>
+      </a>
     </div>
 
     <button
@@ -56,9 +58,9 @@
             {link.name}
           </a>
         {/each}
-        <button class="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-red-700">
+        <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-red-700">
           Get Started
-        </button>
+        </a>
       </div>
     </div>
   {/if}

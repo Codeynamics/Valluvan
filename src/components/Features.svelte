@@ -1,4 +1,5 @@
 <script>
+  import { link } from 'svelte-spa-router';
   const features = [
     {
       title: 'Dashboard',
@@ -19,6 +20,7 @@
       title: 'Random Thirukural',
       tamil: 'தற்செயல் குறள்',
       desc: 'Discover a new Kural on every visit. Let ancient wisdom find you through serendipity.',
+      link: '/random',
     },
     {
       title: 'Prizes',
@@ -43,7 +45,10 @@
 
     <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {#each features as f (f.title)}
-        <div class="group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md">
+        <div class="relative group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md {f.link ? 'cursor-pointer' : ''}">
+          {#if f.link}
+            <a href={f.link} use:link aria-label={f.title} class="absolute inset-0 z-10"></a>
+          {/if}
           <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-100 text-red-600">
             {#if f.title === 'Dashboard'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
