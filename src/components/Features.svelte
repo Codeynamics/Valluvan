@@ -1,4 +1,5 @@
 <script>
+  import { link } from 'svelte-spa-router';
   const features = [
     {
       title: 'Dashboard',
@@ -16,9 +17,10 @@
       desc: 'Challenge friends or join global leaderboards. Weekly quizzes and timed Kural identification games.',
     },
     {
-      title: 'Contact',
-      tamil: 'தொடர்பு',
-      desc: 'Reach out to mentors, join discussion forums, and connect with fellow learners around the world.',
+      title: 'Random Thirukural',
+      tamil: 'தற்செயல் குறள்',
+      desc: 'Discover a new Kural on every visit. Let ancient wisdom find you through serendipity.',
+      link: '/random',
     },
     {
       title: 'Prizes',
@@ -43,7 +45,10 @@
 
     <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {#each features as f (f.title)}
-        <div class="group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md">
+        <div class="relative group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md {f.link ? 'cursor-pointer' : ''}">
+          {#if f.link}
+            <a href={f.link} use:link aria-label={f.title} class="absolute inset-0 z-10"></a>
+          {/if}
           <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-100 text-red-600">
             {#if f.title === 'Dashboard'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -57,11 +62,14 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
-            {:else if f.title === 'Contact'}
+            {:else if f.title === 'Random Thirukural'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-6a2 2 0 012-2h2"/>
-                <circle cx="12" cy="11" r="1"/>
-                <path d="M8 11h0"/><path d="M16 11h0"/>
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="16" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="8" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
               </svg>
             {:else if f.title === 'Prizes'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

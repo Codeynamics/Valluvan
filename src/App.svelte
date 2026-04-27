@@ -1,17 +1,15 @@
 <script>
+  import Router from 'svelte-spa-router';
+  import { link } from 'svelte-spa-router';
   import Navbar from './components/Navbar.svelte';
-  import Hero from './components/Hero.svelte';
-  import Features from './components/Features.svelte';
-  import Competition from './components/Competition.svelte';
-  import Prizes from './components/Prizes.svelte';
-  import Contact from './components/Contact.svelte';
-  import Footer from './components/Footer.svelte';
+  import Home from './pages/Home.svelte';
+  import Random from './pages/Random.svelte';
+
+  const routes = {
+    '/': Home,
+    '/random': Random,
+  };
 </script>
 
 <Navbar />
-<Hero />
-<Features />
-<Competition />
-<Prizes />
-<Contact />
-<Footer />
+<Router {routes} />
