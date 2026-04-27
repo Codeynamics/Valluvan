@@ -1,12 +1,23 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link, push } from 'svelte-spa-router';
   let menuOpen = $state(false);
   const links = [
-    { name: 'Features', href: '/#features' },
-    { name: 'Competition', href: '/#competition' },
-    { name: 'Prizes', href: '/#prizes' },
-    { name: 'Contact', href: '/#contact' },
+    { name: 'Features', id: 'features' },
+    { name: 'Competition', id: 'competition' },
+    { name: 'Prizes', id: 'prizes' },
+    { name: 'Contact', id: 'contact' },
   ];
+
+  function scrollTo(id) {
+    return (e) => {
+      e.preventDefault();
+      menuOpen = false;
+      push('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    };
+  }
 </script>
 
 <nav class="sticky top-0 z-50 w-full border-b border-red-100 bg-white/90 backdrop-blur">
@@ -25,9 +36,9 @@
     </a>
 
     <div class="hidden items-center gap-8 md:flex">
-      {#each links as link (link.name)}
-        <a href={link.href} class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
-          {link.name}
+      {#each links as l (l.name)}
+        <a href="/#{l.id}" onclick={scrollTo(l.id)} class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
+          {l.name}
         </a>
       {/each}
       <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">
@@ -53,9 +64,9 @@
   {#if menuOpen}
     <div class="border-t border-red-100 bg-white px-6 py-4 md:hidden">
       <div class="flex flex-col gap-4">
-        {#each links as link (link.name)}
-          <a href={link.href} class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={() => menuOpen = false}>
-            {link.name}
+        {#each links as l (l.name)}
+          <a href="/#{l.id}" class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={scrollTo(l.id)}>
+            {l.name}
           </a>
         {/each}
         <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-red-700">
