@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { link, push } from 'svelte-spa-router';
   let menuOpen = $state(false);
   const links = [
@@ -8,8 +8,8 @@
     { name: 'Contact', id: 'contact' },
   ];
 
-  function scrollTo(id) {
-    return (e) => {
+  function scrollTo(id: string) {
+    return (e: Event) => {
       e.preventDefault();
       menuOpen = false;
       push('/');
