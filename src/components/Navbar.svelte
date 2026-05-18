@@ -2,6 +2,7 @@
   import { link, push } from 'svelte-spa-router';
   let menuOpen = $state(false);
   const links = [
+    { name: 'Kural', href: '/kural', isRoute: true },
     { name: 'Features', id: 'features' },
     { name: 'Competition', id: 'competition' },
     { name: 'Prizes', id: 'prizes' },
@@ -37,9 +38,15 @@
 
     <div class="hidden items-center gap-8 md:flex">
       {#each links as l (l.name)}
-        <a href="/#{l.id}" onclick={scrollTo(l.id)} class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
-          {l.name}
-        </a>
+        {#if l.isRoute}
+          <a href={l.href} use:link class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
+            {l.name}
+          </a>
+        {:else}
+          <a href="/#{l.id!}" onclick={scrollTo(l.id!)} class="text-sm font-medium text-gray-600 transition-colors hover:text-red-600">
+            {l.name}
+          </a>
+        {/if}
       {/each}
       <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">
         Get Started
@@ -65,9 +72,15 @@
     <div class="border-t border-red-100 bg-white px-6 py-4 md:hidden">
       <div class="flex flex-col gap-4">
         {#each links as l (l.name)}
-          <a href="/#{l.id}" class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={scrollTo(l.id)}>
-            {l.name}
-          </a>
+          {#if l.isRoute}
+            <a href={l.href} use:link class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={() => menuOpen = false}>
+              {l.name}
+            </a>
+          {:else}
+            <a href="/#{l.id!}" class="text-sm font-medium text-gray-600 hover:text-red-600" onclick={scrollTo(l.id!)}>
+              {l.name}
+            </a>
+          {/if}
         {/each}
         <a href="/" use:link class="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-red-700">
           Get Started

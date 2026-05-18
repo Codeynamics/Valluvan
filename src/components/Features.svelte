@@ -12,6 +12,12 @@
       desc: 'Review every Kural you have studied. Filter by adhikaram, search keywords, and revisit favorites.',
     },
     {
+      title: 'Thirukkural',
+      tamil: 'திருக்குறள்',
+      desc: 'Browse all 1330 Kurals organized by Paal, Iyal, and Adhikaram with Tamil and English translations.',
+      link: '/kural',
+    },
+    {
       title: 'Competition',
       tamil: 'போட்டி',
       desc: 'Challenge friends or join global leaderboards. Weekly quizzes and timed Kural identification games.',
@@ -43,7 +49,7 @@
       <p class="mx-auto mt-4 max-w-2xl text-gray-600">A complete toolkit for learners of all ages. From daily study to global competitions.</p>
     </div>
 
-    <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {#each features as f (f.title)}
         <div class="relative group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md {f.link ? 'cursor-pointer' : ''}">
           {#if f.link}
@@ -61,6 +67,10 @@
             {:else if f.title === 'Competition'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            {:else if f.title === 'Thirukkural'}
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
               </svg>
             {:else if f.title === 'Random Thirukural'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
