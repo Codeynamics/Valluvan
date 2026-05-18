@@ -38,21 +38,21 @@
   let openAdhikaram = $state<number | null>(null);
   let searchQuery = $state('');
 
-  const paalIcons = [
+  const paalStyles = [
     {
-      label: 'அறம்',
-      color: 'bg-amber-100 text-amber-700',
-      border: 'border-amber-200',
+      accent: 'border-l-blue-500',
+      badge: 'bg-blue-50 text-blue-600 border border-blue-200',
+      numBg: 'bg-blue-500',
     },
     {
-      label: 'பொருள்',
-      color: 'bg-emerald-100 text-emerald-700',
-      border: 'border-emerald-200',
+      accent: 'border-l-emerald-500',
+      badge: 'bg-emerald-50 text-emerald-600 border border-emerald-200',
+      numBg: 'bg-emerald-500',
     },
     {
-      label: 'இன்பம்',
-      color: 'bg-rose-100 text-rose-700',
-      border: 'border-rose-200',
+      accent: 'border-l-rose-500',
+      badge: 'bg-rose-50 text-rose-600 border border-rose-200',
+      numBg: 'bg-rose-500',
     },
   ];
 
@@ -161,27 +161,23 @@
       {/if}
     </div>
 
-    <div class="mt-8 space-y-3">
+    <div class="mt-8 space-y-4">
       {#each filteredPaals as paal, paalIdx (paalIdx)}
-        {@const icon = paalIcons[paalIdx] || paalIcons[0]}
+        {@const style = paalStyles[paalIdx] || paalStyles[0]}
         <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           <button
             onclick={() => togglePaal(paalIdx)}
-            class="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-gray-50"
+            class="flex w-full items-center justify-between border-l-4 {style.accent} px-6 py-5 text-left transition-colors hover:bg-gray-50"
           >
-            <div class="flex items-center gap-3">
-              <span
-                class="inline-flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold {icon.color}"
-              >
-                {icon.label}
-              </span>
-              <div>
-                <h2 class="text-lg font-bold text-gray-900 font-noto">{paal.name}</h2>
-                <p class="text-xs text-gray-400">{paal.translation} &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.length, 0)} adhikarams</p>
+            <div>
+              <div class="flex items-center gap-3">
+                <h2 class="text-xl font-bold text-gray-900 font-noto">{paal.name}</h2>
+                <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {style.badge}">{paal.translation}</span>
               </div>
+              <p class="mt-1 text-xs text-gray-400 font-noto">{paal.transliteration} &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.length, 0)} adhikarams &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0), 0)} kurals</p>
             </div>
             <svg
-              class="h-5 w-5 text-gray-400 transition-transform duration-200 {openPaal === paalIdx ? 'rotate-180' : ''}"
+              class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200 {openPaal === paalIdx ? 'rotate-180' : ''}"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -227,7 +223,7 @@
                             class="flex w-full items-center justify-between px-6 py-3.5 text-left transition-colors hover:bg-white"
                           >
                             <div class="flex items-center gap-3">
-                              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {icon.color} text-[10px] font-bold">
+                              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {style.numBg} text-[10px] font-bold text-white">
                                 {adhikaram.number}
                               </span>
                               <div class="text-left">
