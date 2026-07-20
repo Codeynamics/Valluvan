@@ -41,21 +41,21 @@
   ];
 </script>
 
-<section id="features" class="bg-white px-6 py-20 md:py-28">
+<section id="features" class="bg-black px-6 py-20 md:py-28">
   <div class="mx-auto max-w-7xl">
     <div class="text-center">
-      <p class="text-sm font-semibold uppercase tracking-wider text-red-600">Features</p>
-      <h2 class="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">Everything to master Thirukkural</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-gray-600">A complete toolkit for learners of all ages. From daily study to global competitions.</p>
+      <p class="text-sm font-semibold uppercase tracking-wider text-gold">Features</p>
+      <h2 class="mt-2 text-3xl font-bold text-white md:text-4xl">Everything to master Thirukkural</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-white/60">A complete toolkit for learners of all ages. From daily study to global competitions.</p>
     </div>
 
     <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {#each features as f (f.title)}
-        <div class="relative group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-md {f.link ? 'cursor-pointer' : ''}">
+        <div class="relative group rounded-2xl border border-silver/15 bg-surface p-8 transition-colors hover:border-gold/50 {f.link ? 'cursor-pointer' : ''}">
           {#if f.link}
             <a href={f.link} use:link aria-label={f.title} class="absolute inset-0 z-10"></a>
           {/if}
-          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-100 text-red-600">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
             {#if f.title === 'Dashboard'}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
@@ -91,11 +91,11 @@
               </svg>
             {/if}
           </div>
-          <h3 class="mt-5 text-lg font-bold text-gray-900">
+          <h3 class="mt-5 text-lg font-bold text-white">
             {f.title}
-            <span class="ml-2 block text-sm font-medium text-red-500 font-noto">{f.tamil}</span>
+            <span class="ml-2 block text-sm font-medium text-gold font-noto">{f.tamil}</span>
           </h3>
-          <p class="mt-3 text-sm leading-relaxed text-gray-600">{f.desc}</p>
+          <p class="mt-3 text-sm leading-relaxed text-white/60">{f.desc}</p>
         </div>
       {/each}
     </div>

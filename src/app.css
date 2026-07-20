@@ -1,13 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  /* Gold — projections, important highlights, CTAs */
+  --color-gold: #c9a227;
+  --color-gold-soft: #e8d9a0;
+  --color-gold-hover: #b08d20;
+
+  /* Silver — borders, hover surfaces, related accents */
+  --color-silver: #c0c4cc;
+
+  /* Elevated surfaces on the black canvas */
+  --color-surface: #141414;
+  --color-surface-2: #1e1e1e;
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: #000000;
 }
 
 .font-noto {

@@ -99,19 +99,19 @@
   <title>Random Thirukural — Valluvan</title>
 </svelte:head>
 
-<section class="flex min-h-screen flex-col items-center bg-gray-50 px-6 py-24">
+<section class="flex min-h-screen flex-col items-center bg-black px-6 py-24">
   <!-- Header -->
   <div class="text-center">
-    <p class="text-xs font-bold uppercase tracking-[0.2em] text-red-600">தற்செயல் குறள்</p>
-    <h1 class="mt-3 text-3xl font-bold text-gray-900 md:text-4xl">Random Thirukural</h1>
-    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500">Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.</p>
+    <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold">தற்செயல் குறள்</p>
+    <h1 class="mt-3 text-3xl font-bold text-white md:text-4xl">Random Thirukural</h1>
+    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/50">Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.</p>
   </div>
 
   <!-- Slot Machine -->
   <div class="mt-14">
-    <div class="relative rounded-3xl border border-gray-200 bg-white p-4 shadow-xl shadow-gray-200/60 md:p-6">
+    <div class="relative rounded-3xl border border-silver/20 bg-surface p-4 shadow-xl shadow-black/40 md:p-6">
       <!-- Top accent line -->
-      <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-red-600"></div>
+      <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gold"></div>
 
       <!-- Reels container -->
       <div class="flex items-center gap-3 md:gap-4">
@@ -124,7 +124,7 @@
         </div>
 
         <!-- Divider -->
-        <div class="h-20 w-px bg-gray-200 md:h-24"></div>
+        <div class="h-20 w-px bg-silver/20 md:h-24"></div>
 
         <!-- Vertical spinners (digits 2-4) -->
         {#each [0, 1, 2] as idx (idx)}
@@ -146,7 +146,7 @@
   <button
     onclick={generate}
     disabled={isSpinning}
-    class="mt-10 inline-flex w-64 items-center justify-center rounded-full bg-red-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-200/80 transition-all hover:bg-red-700 hover:shadow-xl hover:shadow-red-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+    class="mt-10 inline-flex w-64 items-center justify-center rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-black shadow-lg shadow-gold/25 transition-all hover:bg-gold-hover hover:shadow-xl hover:shadow-gold/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
   >
     {#if isSpinning}
       <svg
@@ -172,10 +172,10 @@
   <!-- Result -->
   {#if displayedNumber !== null}
     <div class="mt-12 w-full max-w-xs">
-      <div class="rounded-2xl border border-gray-100 bg-white px-8 py-7 shadow-lg shadow-gray-200/50 text-center">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Kural Number</p>
-        <p class="mt-2 text-5xl font-bold text-red-600 md:text-6xl">{displayedNumber}</p>
-        <p class="mt-2 font-mono text-xs text-gray-300">#{pad4(displayedNumber)}</p>
+      <div class="rounded-2xl border border-silver/15 bg-surface px-8 py-7 shadow-lg shadow-black/40 text-center">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Kural Number</p>
+        <p class="mt-2 text-5xl font-bold text-gold md:text-6xl">{displayedNumber}</p>
+        <p class="mt-2 font-mono text-xs text-white/30">#{pad4(displayedNumber)}</p>
       </div>
     </div>
   {/if}
@@ -241,8 +241,8 @@
     height: 96px;
     overflow: hidden;
     border-radius: 12px;
-    background: #0f172a;
-    border: 2px solid #1e293b;
+    background: #0a0a0a;
+    border: 2px solid rgba(192, 196, 204, 0.2);
     position: relative;
     flex-shrink: 0;
   }
@@ -260,12 +260,12 @@
 
   .reel-window::before {
     top: 0;
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), transparent);
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), transparent);
   }
 
   .reel-window::after {
     bottom: 0;
-    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
   }
 
   .reel {

@@ -40,19 +40,19 @@
 
   const paalStyles = [
     {
-      accent: 'border-l-blue-500',
-      badge: 'bg-blue-50 text-blue-600 border border-blue-200',
-      numBg: 'bg-blue-500',
+      accent: 'border-l-gold',
+      badge: 'bg-gold/10 text-gold border border-gold/30',
+      numBg: 'bg-gold',
     },
     {
-      accent: 'border-l-emerald-500',
-      badge: 'bg-emerald-50 text-emerald-600 border border-emerald-200',
-      numBg: 'bg-emerald-500',
+      accent: 'border-l-gold',
+      badge: 'bg-gold/10 text-gold border border-gold/30',
+      numBg: 'bg-gold',
     },
     {
-      accent: 'border-l-rose-500',
-      badge: 'bg-rose-50 text-rose-600 border border-rose-200',
-      numBg: 'bg-rose-500',
+      accent: 'border-l-gold',
+      badge: 'bg-gold/10 text-gold border border-gold/30',
+      numBg: 'bg-gold',
     },
   ];
 
@@ -121,12 +121,12 @@
   <title>Thirukkural — Valluvan</title>
 </svelte:head>
 
-<section class="min-h-screen bg-gray-50 px-4 py-20 sm:px-6">
+<section class="min-h-screen bg-black px-4 py-20 sm:px-6">
   <div class="mx-auto max-w-4xl">
     <div class="text-center">
-      <p class="text-xs font-bold uppercase tracking-[0.2em] text-red-600">திருக்குறள்</p>
-      <h1 class="mt-3 text-3xl font-bold text-gray-900 md:text-4xl">Thirukkural</h1>
-      <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-gray-500">
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold">திருக்குறள்</p>
+      <h1 class="mt-3 text-3xl font-bold text-white md:text-4xl">Thirukkural</h1>
+      <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/50">
         All 1330 couplets by Thiruvalluvar, organized by Paal, Iyal, and Adhikaram
       </p>
     </div>
@@ -134,7 +134,7 @@
     <div class="mt-8">
       <div class="relative">
         <svg
-          class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+          class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/40"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -151,11 +151,11 @@
           type="text"
           bind:value={searchQuery}
           placeholder="Search kurals, chapters, translations..."
-          class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-900 shadow-sm outline-none transition-colors placeholder:text-gray-400 focus:border-red-300 focus:ring-2 focus:ring-red-100"
+          class="w-full rounded-xl border border-silver/20 bg-surface py-3.5 pl-12 pr-4 text-sm text-white shadow-sm outline-none transition-colors placeholder:text-white/40 focus:border-gold focus:ring-2 focus:ring-gold/20"
         />
       </div>
       {#if searchQuery.trim()}
-        <p class="mt-2 text-xs text-gray-400">
+        <p class="mt-2 text-xs text-white/40">
           {totalResults} kural{totalResults !== 1 ? 's' : ''} found
         </p>
       {/if}
@@ -164,20 +164,20 @@
     <div class="mt-8 space-y-4">
       {#each filteredPaals as paal, paalIdx (paalIdx)}
         {@const style = paalStyles[paalIdx] || paalStyles[0]}
-        <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <div class="overflow-hidden rounded-2xl border border-silver/15 bg-surface shadow-sm">
           <button
             onclick={() => togglePaal(paalIdx)}
-            class="flex w-full items-center justify-between border-l-4 {style.accent} px-6 py-5 text-left transition-colors hover:bg-gray-50"
+            class="flex w-full items-center justify-between border-l-4 {style.accent} px-6 py-5 text-left transition-colors hover:bg-surface-2"
           >
             <div>
               <div class="flex items-center gap-3">
-                <h2 class="text-xl font-bold text-gray-900 font-noto">{paal.name}</h2>
+                <h2 class="text-xl font-bold text-white font-noto">{paal.name}</h2>
                 <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {style.badge}">{paal.translation}</span>
               </div>
-              <p class="mt-1 text-xs text-gray-400 font-noto">{paal.transliteration} &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.length, 0)} adhikarams &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0), 0)} kurals</p>
+              <p class="mt-1 text-xs text-white/40 font-noto">{paal.transliteration} &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.length, 0)} adhikarams &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0), 0)} kurals</p>
             </div>
             <svg
-              class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200 {openPaal === paalIdx ? 'rotate-180' : ''}"
+              class="h-5 w-5 shrink-0 text-white/40 transition-transform duration-200 {openPaal === paalIdx ? 'rotate-180' : ''}"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -189,21 +189,21 @@
           </button>
 
           {#if openPaal === paalIdx}
-            <div class="border-t border-gray-100">
+            <div class="border-t border-silver/15">
               {#each paal.iyals as iyal, iyalIdx (iyalIdx)}
                 {@const key = iyalKey(paalIdx, iyalIdx)}
-                <div class="{iyalIdx > 0 ? 'border-t border-gray-100' : ''}">
+                <div class="{iyalIdx > 0 ? 'border-t border-silver/15' : ''}">
                   <button
                     onclick={() => toggleIyal(key)}
-                    class="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-gray-50"
+                    class="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-surface-2"
                   >
                     <div class="flex items-center gap-2">
-                      <span class="h-1.5 w-1.5 rounded-full bg-gray-300"></span>
-                      <span class="text-sm font-semibold text-gray-800 font-noto">{iyal.name}</span>
-                      <span class="text-xs text-gray-400">({iyal.translation})</span>
+                      <span class="h-1.5 w-1.5 rounded-full bg-silver/50"></span>
+                      <span class="text-sm font-semibold text-white/90 font-noto">{iyal.name}</span>
+                      <span class="text-xs text-white/40">({iyal.translation})</span>
                     </div>
                     <svg
-                      class="h-4 w-4 text-gray-400 transition-transform duration-200 {openIyal === key ? 'rotate-180' : ''}"
+                      class="h-4 w-4 text-white/40 transition-transform duration-200 {openIyal === key ? 'rotate-180' : ''}"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -215,24 +215,24 @@
                   </button>
 
                   {#if openIyal === key}
-                    <div class="border-t border-gray-50 bg-gray-50/50">
+                    <div class="border-t border-silver/10 bg-black/40">
                       {#each iyal.adhikarams as adhikaram, adIdx (adhikaram.number)}
-                        <div class="{adIdx > 0 ? 'border-t border-gray-100' : ''}">
+                        <div class="{adIdx > 0 ? 'border-t border-silver/15' : ''}">
                           <button
                             onclick={() => toggleAdhikaram(adhikaram.number)}
-                            class="flex w-full items-center justify-between px-6 py-3.5 text-left transition-colors hover:bg-white"
+                            class="flex w-full items-center justify-between px-6 py-3.5 text-left transition-colors hover:bg-surface-2"
                           >
                             <div class="flex items-center gap-3">
-                              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {style.numBg} text-[10px] font-bold text-white">
+                              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {style.numBg} text-[10px] font-bold text-black">
                                 {adhikaram.number}
                               </span>
                               <div class="text-left">
-                                <span class="text-sm font-semibold text-gray-800 font-noto">{adhikaram.name}</span>
-                                <span class="ml-2 text-xs text-gray-400">{adhikaram.translation}</span>
+                                <span class="text-sm font-semibold text-white/90 font-noto">{adhikaram.name}</span>
+                                <span class="ml-2 text-xs text-white/40">{adhikaram.translation}</span>
                               </div>
                             </div>
                             <svg
-                              class="h-4 w-4 text-gray-400 transition-transform duration-200 {openAdhikaram === adhikaram.number ? 'rotate-180' : ''}"
+                              class="h-4 w-4 text-white/40 transition-transform duration-200 {openAdhikaram === adhikaram.number ? 'rotate-180' : ''}"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
@@ -244,26 +244,26 @@
                           </button>
 
                           {#if openAdhikaram === adhikaram.number}
-                            <div class="border-t border-gray-100 bg-white px-6 py-4">
+                            <div class="border-t border-silver/15 bg-surface px-6 py-4">
                               <div class="space-y-4">
                                 {#each adhikaram.kurals as kural (kural.number)}
-                                  <div class="rounded-xl border border-gray-100 bg-gray-50/50 p-5">
+                                  <div class="rounded-xl border border-silver/15 bg-black/40 p-5">
                                     <div class="mb-3 flex items-center gap-2">
-                                      <span class="rounded-md bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-600">
+                                      <span class="rounded-md bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold">
                                         #{kural.number}
                                       </span>
                                     </div>
-                                    <p class="font-noto text-base leading-relaxed text-gray-900">
+                                    <p class="font-noto text-base leading-relaxed text-white">
                                       {kural.line1}
                                     </p>
-                                    <p class="font-noto text-base leading-relaxed text-gray-900">
+                                    <p class="font-noto text-base leading-relaxed text-white">
                                       {kural.line2}
                                     </p>
-                                    <div class="mt-3 space-y-2 border-t border-gray-100 pt-3">
-                                      <p class="font-noto text-sm leading-relaxed text-gray-600">
+                                    <div class="mt-3 space-y-2 border-t border-silver/15 pt-3">
+                                      <p class="font-noto text-sm leading-relaxed text-white/60">
                                         {kural.tamilExplanation}
                                       </p>
-                                      <p class="text-sm leading-relaxed text-gray-500 italic">
+                                      <p class="text-sm leading-relaxed text-white/50 italic">
                                         {kural.englishTranslation}
                                       </p>
                                     </div>
@@ -286,7 +286,7 @@
 
     {#if filteredPaals.length === 0}
       <div class="mt-12 text-center">
-        <p class="text-gray-400 text-sm">No kurals found for "{searchQuery}"</p>
+        <p class="text-white/40 text-sm">No kurals found for "{searchQuery}"</p>
       </div>
     {/if}
   </div>
