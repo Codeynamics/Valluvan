@@ -1,7 +1,38 @@
 <script lang="ts">
+  import data from '../data/thirukkural.json';
+
+  type KuralEntry = {
+    number: number;
+    line1: string;
+    line2: string;
+    tamilExplanation: string;
+    englishTranslation: string;
+    adhikaram: string;
+    adhikaramTranslation: string;
+  };
+
+  const kuralByNumber: Record<number, KuralEntry> = {};
+  for (const paal of data.paals) {
+    for (const iyal of paal.iyals) {
+      for (const adhikaram of iyal.adhikarams) {
+        for (const k of adhikaram.kurals) {
+          kuralByNumber[k.number] = {
+            ...k,
+            adhikaram: adhikaram.name,
+            adhikaramTranslation: adhikaram.translation,
+          };
+        }
+      }
+    }
+  }
+
   let isSpinning = $state(false);
   let finalNumber = $state<number | null>(null);
   let displayedNumber = $state<number | null>(null);
+
+  let displayedKural = $derived(
+    displayedNumber !== null ? (kuralByNumber[displayedNumber] ?? null) : null
+  );
 
   let coinEl: HTMLDivElement;
   let reelEls = $state<HTMLDivElement[]>([]);
@@ -99,19 +130,23 @@
   <title>Random Thirukural — Valluvan</title>
 </svelte:head>
 
-<section class="flex min-h-screen flex-col items-center bg-gray-50 px-6 py-24">
+<section class="flex min-h-screen flex-col items-center bg-black px-6 py-24">
   <!-- Header -->
   <div class="text-center">
-    <p class="text-xs font-bold uppercase tracking-[0.2em] text-red-600">தற்செயல் குறள்</p>
-    <h1 class="mt-3 text-3xl font-bold text-gray-900 md:text-4xl">Random Thirukural</h1>
-    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500">Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.</p>
+    <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold">தற்செயல் குறள்</p>
+    <h1 class="mt-3 text-3xl font-bold text-white md:text-4xl">Random Thirukural</h1>
+    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/50">
+      Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.
+    </p>
   </div>
 
-  <!-- Slot Machine -->
-  <div class="mt-14">
-    <div class="relative rounded-3xl border border-gray-200 bg-white p-4 shadow-xl shadow-gray-200/60 md:p-6">
+  <!-- Slot Machine + Button -->
+  <div class="mt-14 flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-14">
+    <div
+      class="relative rounded-3xl border border-silver/20 bg-surface p-4 shadow-xl shadow-black/40 md:p-6"
+    >
       <!-- Top accent line -->
-      <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-red-600"></div>
+      <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gold"></div>
 
       <!-- Reels container -->
       <div class="flex items-center gap-3 md:gap-4">
@@ -124,7 +159,7 @@
         </div>
 
         <!-- Divider -->
-        <div class="h-20 w-px bg-gray-200 md:h-24"></div>
+        <div class="h-20 w-px bg-silver/20 md:h-24"></div>
 
         <!-- Vertical spinners (digits 2-4) -->
         {#each [0, 1, 2] as idx (idx)}
@@ -140,42 +175,80 @@
         {/each}
       </div>
     </div>
-  </div>
 
-  <!-- Button -->
-  <button
-    onclick={generate}
-    disabled={isSpinning}
-    class="mt-10 inline-flex w-64 items-center justify-center rounded-full bg-red-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-200/80 transition-all hover:bg-red-700 hover:shadow-xl hover:shadow-red-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
-  >
-    {#if isSpinning}
-      <svg
-        class="mr-2 h-4 w-4 animate-spin"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-        ></path>
-      </svg>
-      <span class="w-24 text-center">Spinning...</span>
-    {:else}
-      <span class="w-24 text-center">Generate</span>
-    {/if}
-  </button>
+    <!-- Button -->
+    <button
+      onclick={generate}
+      disabled={isSpinning}
+      class="inline-flex w-64 shrink-0 items-center justify-center rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-black shadow-lg shadow-gold/25 transition-all hover:bg-gold-hover hover:shadow-xl hover:shadow-gold/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {#if isSpinning}
+        <svg
+          class="mr-2 h-4 w-4 animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          ></path>
+        </svg>
+        <span class="w-24 text-center">Spinning...</span>
+      {:else}
+        <span class="w-24 text-center">Generate</span>
+      {/if}
+    </button>
+  </div>
 
   <!-- Result -->
   {#if displayedNumber !== null}
-    <div class="mt-12 w-full max-w-xs">
-      <div class="rounded-2xl border border-gray-100 bg-white px-8 py-7 shadow-lg shadow-gray-200/50 text-center">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Kural Number</p>
-        <p class="mt-2 text-5xl font-bold text-red-600 md:text-6xl">{displayedNumber}</p>
-        <p class="mt-2 font-mono text-xs text-gray-300">#{pad4(displayedNumber)}</p>
+    <div class="mt-12 w-full max-w-4xl">
+      <div
+        class="overflow-hidden rounded-2xl border border-silver/15 bg-surface shadow-lg shadow-black/40"
+      >
+        <div class="grid md:grid-cols-5">
+          <!-- Left: number + couplet -->
+          <div class="border-b border-silver/15 p-8 md:col-span-3 md:border-b-0 md:border-r">
+            <div class="flex items-center gap-4">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Kural</p>
+                <p class="text-4xl font-bold leading-none text-gold">{displayedNumber}</p>
+              </div>
+              {#if displayedKural}
+                <span
+                  class="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[11px] font-semibold text-gold font-noto"
+                >
+                  {displayedKural.adhikaram} &middot; {displayedKural.adhikaramTranslation}
+                </span>
+              {/if}
+            </div>
+            {#if displayedKural}
+              <div class="mt-6">
+                <p class="font-noto text-xl leading-relaxed text-white">{displayedKural.line1}</p>
+                <p class="font-noto text-xl leading-relaxed text-white">{displayedKural.line2}</p>
+              </div>
+            {/if}
+          </div>
+
+          <!-- Right: explanations -->
+          <div class="p-8 md:col-span-2">
+            {#if displayedKural}
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Meaning</p>
+              <p class="mt-3 font-noto text-sm leading-relaxed text-white/70">
+                {displayedKural.tamilExplanation}
+              </p>
+              <p class="mt-3 text-sm italic leading-relaxed text-white/50">
+                {displayedKural.englishTranslation}
+              </p>
+            {:else}
+              <p class="font-mono text-xs text-white/30">#{pad4(displayedNumber)}</p>
+            {/if}
+          </div>
+        </div>
       </div>
     </div>
   {/if}
@@ -241,8 +314,8 @@
     height: 96px;
     overflow: hidden;
     border-radius: 12px;
-    background: #0f172a;
-    border: 2px solid #1e293b;
+    background: #0a0a0a;
+    border: 2px solid rgba(192, 196, 204, 0.2);
     position: relative;
     flex-shrink: 0;
   }
@@ -260,12 +333,12 @@
 
   .reel-window::before {
     top: 0;
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), transparent);
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), transparent);
   }
 
   .reel-window::after {
     bottom: 0;
-    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
   }
 
   .reel {
