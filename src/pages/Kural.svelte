@@ -93,8 +93,8 @@
                     k.line2.toLowerCase().includes(q) ||
                     k.englishTranslation.toLowerCase().includes(q) ||
                     k.tamilExplanation.toLowerCase().includes(q) ||
-                    k.number.toString() === q,
-                ),
+                    k.number.toString() === q
+                )
             );
             return { ...iyal, adhikarams: filteredAdhikarams };
           })
@@ -110,9 +110,9 @@
         sum +
         paal.iyals.reduce(
           (s, iyal) => s + iyal.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0),
-          0,
+          0
         ),
-      0,
+      0
     );
   });
 </script>
@@ -172,12 +172,25 @@
             <div>
               <div class="flex items-center gap-3">
                 <h2 class="text-xl font-bold text-white font-noto">{paal.name}</h2>
-                <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {style.badge}">{paal.translation}</span>
+                <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {style.badge}"
+                  >{paal.translation}</span
+                >
               </div>
-              <p class="mt-1 text-xs text-white/40 font-noto">{paal.transliteration} &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.length, 0)} adhikarams &middot; {paal.iyals.reduce((s, i) => s + i.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0), 0)} kurals</p>
+              <p class="mt-1 text-xs text-white/40 font-noto">
+                {paal.transliteration} &middot; {paal.iyals.reduce(
+                  (s, i) => s + i.adhikarams.length,
+                  0
+                )} adhikarams &middot; {paal.iyals.reduce(
+                  (s, i) => s + i.adhikarams.reduce((a, ad) => a + ad.kurals.length, 0),
+                  0
+                )} kurals
+              </p>
             </div>
             <svg
-              class="h-5 w-5 shrink-0 text-white/40 transition-transform duration-200 {openPaal === paalIdx ? 'rotate-180' : ''}"
+              class="h-5 w-5 shrink-0 text-white/40 transition-transform duration-200 {openPaal ===
+              paalIdx
+                ? 'rotate-180'
+                : ''}"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -192,7 +205,7 @@
             <div class="border-t border-silver/15">
               {#each paal.iyals as iyal, iyalIdx (iyalIdx)}
                 {@const key = iyalKey(paalIdx, iyalIdx)}
-                <div class="{iyalIdx > 0 ? 'border-t border-silver/15' : ''}">
+                <div class={iyalIdx > 0 ? 'border-t border-silver/15' : ''}>
                   <button
                     onclick={() => toggleIyal(key)}
                     class="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-surface-2"
@@ -203,7 +216,10 @@
                       <span class="text-xs text-white/40">({iyal.translation})</span>
                     </div>
                     <svg
-                      class="h-4 w-4 text-white/40 transition-transform duration-200 {openIyal === key ? 'rotate-180' : ''}"
+                      class="h-4 w-4 text-white/40 transition-transform duration-200 {openIyal ===
+                      key
+                        ? 'rotate-180'
+                        : ''}"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -217,29 +233,42 @@
                   {#if openIyal === key}
                     <div class="border-t border-silver/10 bg-black/40">
                       {#each iyal.adhikarams as adhikaram, adIdx (adhikaram.number)}
-                        <div class="{adIdx > 0 ? 'border-t border-silver/15' : ''}">
+                        <div class={adIdx > 0 ? 'border-t border-silver/15' : ''}>
                           <button
                             onclick={() => toggleAdhikaram(adhikaram.number)}
                             class="flex w-full items-center justify-between px-6 py-3.5 text-left transition-colors hover:bg-surface-2"
                           >
                             <div class="flex items-center gap-3">
-                              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {style.numBg} text-[10px] font-bold text-black">
+                              <span
+                                class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {style.numBg} text-[10px] font-bold text-black"
+                              >
                                 {adhikaram.number}
                               </span>
                               <div class="text-left">
-                                <span class="text-sm font-semibold text-white/90 font-noto">{adhikaram.name}</span>
-                                <span class="ml-2 text-xs text-white/40">{adhikaram.translation}</span>
+                                <span class="text-sm font-semibold text-white/90 font-noto"
+                                  >{adhikaram.name}</span
+                                >
+                                <span class="ml-2 text-xs text-white/40"
+                                  >{adhikaram.translation}</span
+                                >
                               </div>
                             </div>
                             <svg
-                              class="h-4 w-4 text-white/40 transition-transform duration-200 {openAdhikaram === adhikaram.number ? 'rotate-180' : ''}"
+                              class="h-4 w-4 text-white/40 transition-transform duration-200 {openAdhikaram ===
+                              adhikaram.number
+                                ? 'rotate-180'
+                                : ''}"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
                               stroke-width="2"
                             >
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 9l-7 7-7-7"
+                              />
                             </svg>
                           </button>
 
@@ -249,7 +278,9 @@
                                 {#each adhikaram.kurals as kural (kural.number)}
                                   <div class="rounded-xl border border-silver/15 bg-black/40 p-5">
                                     <div class="mb-3 flex items-center gap-2">
-                                      <span class="rounded-md bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold">
+                                      <span
+                                        class="rounded-md bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold"
+                                      >
                                         #{kural.number}
                                       </span>
                                     </div>

@@ -6,9 +6,15 @@
         onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <svg class="h-7 w-7" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="3"/>
-          <path d="M12 28L20 12L28 28" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="20" cy="22" r="3" fill="currentColor"/>
+          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="3" />
+          <path
+            d="M12 28L20 12L28 28"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle cx="20" cy="22" r="3" fill="currentColor" />
         </svg>
         <span class="font-noto">வள்ளுவன்</span>
       </button>
@@ -20,7 +26,9 @@
         <a href="#contact" class="hover:text-gold">Contact</a>
       </div>
 
-      <p class="text-sm text-white/40">© {new Date().getFullYear()} Valluvan. All rights reserved.</p>
+      <p class="text-sm text-white/40">
+        © {new Date().getFullYear()} Valluvan. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>

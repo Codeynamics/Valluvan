@@ -11,16 +11,16 @@
     adhikaramTranslation: string;
   };
 
-  const kuralByNumber = new Map<number, KuralEntry>();
+  const kuralByNumber: Record<number, KuralEntry> = {};
   for (const paal of data.paals) {
     for (const iyal of paal.iyals) {
       for (const adhikaram of iyal.adhikarams) {
         for (const k of adhikaram.kurals) {
-          kuralByNumber.set(k.number, {
+          kuralByNumber[k.number] = {
             ...k,
             adhikaram: adhikaram.name,
             adhikaramTranslation: adhikaram.translation,
-          });
+          };
         }
       }
     }
@@ -31,7 +31,7 @@
   let displayedNumber = $state<number | null>(null);
 
   let displayedKural = $derived(
-    displayedNumber !== null ? (kuralByNumber.get(displayedNumber) ?? null) : null,
+    displayedNumber !== null ? (kuralByNumber[displayedNumber] ?? null) : null
   );
 
   let coinEl: HTMLDivElement;
@@ -135,12 +135,16 @@
   <div class="text-center">
     <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold">தற்செயல் குறள்</p>
     <h1 class="mt-3 text-3xl font-bold text-white md:text-4xl">Random Thirukural</h1>
-    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/50">Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.</p>
+    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/50">
+      Let fate choose a Kural for you. Spin the reels and discover ancient wisdom.
+    </p>
   </div>
 
   <!-- Slot Machine + Button -->
   <div class="mt-14 flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-14">
-    <div class="relative rounded-3xl border border-silver/20 bg-surface p-4 shadow-xl shadow-black/40 md:p-6">
+    <div
+      class="relative rounded-3xl border border-silver/20 bg-surface p-4 shadow-xl shadow-black/40 md:p-6"
+    >
       <!-- Top accent line -->
       <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gold"></div>
 
@@ -178,32 +182,34 @@
       disabled={isSpinning}
       class="inline-flex w-64 shrink-0 items-center justify-center rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-black shadow-lg shadow-gold/25 transition-all hover:bg-gold-hover hover:shadow-xl hover:shadow-gold/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
     >
-    {#if isSpinning}
-      <svg
-        class="mr-2 h-4 w-4 animate-spin"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-        ></path>
-      </svg>
-      <span class="w-24 text-center">Spinning...</span>
-    {:else}
-      <span class="w-24 text-center">Generate</span>
-    {/if}
+      {#if isSpinning}
+        <svg
+          class="mr-2 h-4 w-4 animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          ></path>
+        </svg>
+        <span class="w-24 text-center">Spinning...</span>
+      {:else}
+        <span class="w-24 text-center">Generate</span>
+      {/if}
     </button>
   </div>
 
   <!-- Result -->
   {#if displayedNumber !== null}
     <div class="mt-12 w-full max-w-4xl">
-      <div class="overflow-hidden rounded-2xl border border-silver/15 bg-surface shadow-lg shadow-black/40">
+      <div
+        class="overflow-hidden rounded-2xl border border-silver/15 bg-surface shadow-lg shadow-black/40"
+      >
         <div class="grid md:grid-cols-5">
           <!-- Left: number + couplet -->
           <div class="border-b border-silver/15 p-8 md:col-span-3 md:border-b-0 md:border-r">
@@ -213,7 +219,9 @@
                 <p class="text-4xl font-bold leading-none text-gold">{displayedNumber}</p>
               </div>
               {#if displayedKural}
-                <span class="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[11px] font-semibold text-gold font-noto">
+                <span
+                  class="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[11px] font-semibold text-gold font-noto"
+                >
                   {displayedKural.adhikaram} &middot; {displayedKural.adhikaramTranslation}
                 </span>
               {/if}
@@ -230,8 +238,12 @@
           <div class="p-8 md:col-span-2">
             {#if displayedKural}
               <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Meaning</p>
-              <p class="mt-3 font-noto text-sm leading-relaxed text-white/70">{displayedKural.tamilExplanation}</p>
-              <p class="mt-3 text-sm italic leading-relaxed text-white/50">{displayedKural.englishTranslation}</p>
+              <p class="mt-3 font-noto text-sm leading-relaxed text-white/70">
+                {displayedKural.tamilExplanation}
+              </p>
+              <p class="mt-3 text-sm italic leading-relaxed text-white/50">
+                {displayedKural.englishTranslation}
+              </p>
             {:else}
               <p class="font-mono text-xs text-white/30">#{pad4(displayedNumber)}</p>
             {/if}
